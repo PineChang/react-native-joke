@@ -10,6 +10,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Icon from 'react-native-vector-icons/Ionicons'
 import TextList from '../Text/index'
 import ImageList from '../Img/index'
+import Zhihu from '../Zhihu/index'
 
 
 //普通header
@@ -77,8 +78,8 @@ class ScrollHeader extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            tabNames: ['文字', '图片'],
-            tabIconNames: ['ios-home-outline', 'ios-list-outline']
+            tabNames: ['知乎日报','文字', '图片'],
+            tabIconNames: ['ios-home-outline', 'ios-list-outline', 'ios-list-outline']
         }
     }
 
@@ -93,6 +94,7 @@ class ScrollHeader extends Component{
                   tabBarPosition={'top'}
                   renderTabBar={() => <Tabbar tabNames={this.state.tabNames} tabIconNames={this.state.tabIconNames}/>}
               >
+                <Zhihu tabLabel="知乎日报" navigator={this.props.navigator}/>
                   <TextList tabLabel="文字" navigator={this.props.navigator}/>
                   <ImageList tabLabel="图片" navigator={this.props.navigator}/>
               </ScrollableTabView>
