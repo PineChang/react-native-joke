@@ -21,8 +21,11 @@ class Header extends  Component {
   _showBack(){
     if(this.props.hasBack){
       return (
-        <View>
-        </View>
+        <Icon
+            name='ios-arrow-dropleft'
+            size={25}
+            color='#fff'
+        />
       )
     }
   }
