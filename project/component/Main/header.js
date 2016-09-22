@@ -8,24 +8,32 @@ import{
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Icon from 'react-native-vector-icons/Ionicons'
-import TextList from '../Text/index'
-import ImageList from '../Img/index'
-import Zhihu from '../Zhihu/index'
-
+import ZhihuNew from '../Zhihu/index'
+import ZhihuTheme from '../Zhihu/theme'
+import About from '../About/about'
+import Detail from '../Zhihu/detail'
 
 //普通header
 class Header extends  Component {
   constructor(props) {
     super(props)
   }
+  _onPressBack(){
+    const {navigator} = this.props;
+    navigator.pop()
+  }
   _showBack(){
-    if(this.props.hasBack){
+    if(this.props.hasBack == 1){
       return (
-        <Icon
-            name='ios-arrow-dropleft'
-            size={25}
-            color='#fff'
-        />
+        <TouchableOpacity  style={styles.backBtn} onPress={this._onPressBack.bind(this)}>
+          <View style={{flexDirection: 'row', alignItems: 'center' }}>
+              <Icon
+                  name='ios-arrow-dropleft'
+                  size={25}
+                  color='#fff'
+              />
+          </View>
+        </TouchableOpacity>
       )
     }
   }
@@ -33,12 +41,42 @@ class Header extends  Component {
     return(
       <View style={styles.header}>
         {this._showBack()}
-        <Text style={styles.name} numberOfLines={1}>{this.props.headeName}</Text>
+        <Text style={styles.name} numberOfLines={1}>{this.props.headerName}</Text>
+        <Text style={{flex:this.props.hasBack == 1 ? 1 : 0}}></Text>
       </View>
     )
   }
 }
 
+class HomeHeader extends  Component {
+  constructor(props) {
+    super(props)
+  }
+  _onPressBack(){
+    const {navigator} = this.props;
+    navigator.push({
+        name: 'About',
+        component: About
+    })
+  }
+  render (){
+    return(
+      <View style={styles.header}>
+        <Text style={{flex:1}}></Text>
+        <Text style={styles.name} numberOfLines={1}>{this.props.headerName}</Text>
+        <TouchableOpacity  style={styles.backBtn} onPress={this._onPressBack.bind(this)}>
+            <View style={{flexDirection: 'row', alignItems: 'center' }}>
+                <Icon
+                    name='ios-information-outline'
+                    size={25}
+                    color='#fff'
+                />
+            </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
 
 //scroll组件header
 class Tabbar extends Component {
@@ -49,7 +87,7 @@ class Tabbar extends Component {
     }
 
     _renderTab(tab, i) {
-        let color = this.props.activeTab == i ? "#33cd5f" : "#888";
+        let color = this.props.activeTab == i ? "#099fde" : "#888";
         return (
             <TouchableOpacity
                 onPress={()=>this.props.goToPage(i)}
@@ -81,7 +119,7 @@ class ScrollHeader extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            tabNames: ['知乎日报','文字', '图片'],
+            tabNames: ['每日最新','文字', '图片'],
             tabIconNames: ['ios-home-outline', 'ios-list-outline', 'ios-list-outline']
         }
     }
@@ -89,17 +127,16 @@ class ScrollHeader extends Component{
     render() {
         return (
             <View   style={{flex: 1}}>
-              <Header navigator={this.props.navigator} headeName="开心笑一笑" hasBack="false" />
+              <HomeHeader navigator={this.props.navigator} headerName="知乎简报" />
               <ScrollableTabView
                   style={{backgroundColor: '#FCFCFC'}}
                   locked={false}
                   scrollWithoutAnimation={true}
-                  tabBarPosition={'top'}
+                  tabBarPosition={'bottom'}
                   renderTabBar={() => <Tabbar tabNames={this.state.tabNames} tabIconNames={this.state.tabIconNames}/>}
               >
-                <Zhihu tabLabel="知乎日报" navigator={this.props.navigator}/>
-                  <TextList tabLabel="文字" navigator={this.props.navigator}/>
-                  <ImageList tabLabel="图片" navigator={this.props.navigator}/>
+                  <ZhihuNew tabLabel="每日最新" navigator={this.props.navigator}/>
+                  <ZhihuTheme tabLabel="分类主题" navigator={this.props.navigator}/>
               </ScrollableTabView>
           </View>
         )
@@ -118,13 +155,13 @@ const styles = StyleSheet.create({
     name:{
       color:'#fff',
       fontSize:14,
-      flex:10,
+      flex:5,
       textAlign:'center'
     },
     tabs: {
         flexDirection: 'row',
         height: 55,
-        borderBottomWidth: 1,
+        borderTopWidth: 1,
         borderColor: '#ddd'
     },
     tab: {
@@ -135,6 +172,12 @@ const styles = StyleSheet.create({
     tabItem: {
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    backBtn:{
+      flex:1,
+      height:50,
+      justifyContent:'center',
+      alignItems:'center'
     }
 })
 

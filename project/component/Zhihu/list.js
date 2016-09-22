@@ -23,22 +23,37 @@ export default class  DayList extends Component {
           }
       })
     }
+    renderImgOrText(item){
+      if(item.images){
+        return (
+          <TouchableOpacity onPress={this.goDetail.bind(this,item.id)} style={styles.textContent}>
+              <View style={{flex:2,alignItems:'flex-start'}}>
+                  <Image
+                    source={{uri:item.images[0]}}
+                    style={{width: 70, height:70}}
+                  />
+              </View>
+              <Text style={styles.word} numberOfLines={2}>
+                {item.title}
+              </Text>
+         </TouchableOpacity>
+        )
+      }else{
+        return (
+          <TouchableOpacity onPress={this.goDetail.bind(this,item.id)} style={styles.textContent}>
+              <Text style={styles.word} numberOfLines={2}>
+                {item.title}
+              </Text>
+          </TouchableOpacity>
+        )
+      }
+    }
     render(){
       let item = this.props.data;
 
       return(
-        <View >
-          <TouchableOpacity onPress={this.goDetail.bind(this,item.id)} style={styles.textContent}>
-            <Text style={styles.word} numberOfLines={3}>
-            {item.title}
-            </Text>
-            <View style={{flex:3}}>
-                <Image
-                  source={{uri:item.images[0]}}
-                  style={{width: 100, height:100}}
-                />
-            </View>
-          </TouchableOpacity>
+        <View style={{backgroundColor:'#ddd'}}>
+          {this.renderImgOrText(item)}
         </View>
       )
     }
@@ -51,10 +66,14 @@ const styles = StyleSheet.create({
     marginRight:5,
     paddingTop:15,
     paddingBottom:15,
-    borderBottomWidth:1,
-    borderColor:'#ddd',
-    height:130,
-    flexDirection:'row'
+    paddingLeft:5,
+    paddingRight:5,
+    marginTop:10,
+    borderRadius:4,
+    height:100,
+    flexDirection:'row',
+    borderColor:'#fff',
+    borderWidth:1
   },
   word:{
     fontSize:18,

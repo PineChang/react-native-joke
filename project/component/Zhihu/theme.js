@@ -7,9 +7,9 @@ import{
   Text
 }from 'react-native'
 
-import {ImgContent} from '../List/list'
+import ThemeList from '../Theme/indexList'
 
-class ImageList extends Component {
+class ZhihuTheme extends Component {
   constructor(props){
     super(props)
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -22,22 +22,15 @@ class ImageList extends Component {
     };
   }
   getData(){
-    fetch('http://apis.baidu.com/showapi_open_bus/showapi_joke/joke_pic?page='+this.state.pageIndex, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        "apikey":"3936415a8d4baff336b0f0470e24726a"
-      }
-    })
+    fetch('http://news-at.zhihu.com/api/4/themes')
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({
-        listResource:this.state.listResource.concat(responseJson.showapi_res_body.contentlist),
+        listResource:this.state.listResource.concat(responseJson.others),
         pageIndex:this.state.pageIndex +1,
-        ds:this.state.ds.cloneWithRows(this.state.listResource.concat(responseJson.showapi_res_body.contentlist))
+        ds:this.state.ds.cloneWithRows(this.state.listResource.concat(responseJson.others))
       })
-      if(responseJson.showapi_res_body.contentlist.length != 20){
+      if(responseJson.others.length < 10){
         this.setState({
           isAllLoad:true
         })
@@ -58,8 +51,7 @@ class ImageList extends Component {
       return (
         <ListView
            dataSource={this.state.ds}
-           onEndReached={this._onEndReached.bind(this)}
-           renderRow={(rowData) =><ImgContent data={rowData} navigator={this.props.navigator} />}
+           renderRow={(rowData) =><ThemeList data={rowData} navigator={this.props.navigator} />}
          />
       )
     }else{
@@ -77,4 +69,4 @@ class ImageList extends Component {
 const styles = StyleSheet.create({
 
 })
-export default ImageList
+export default ZhihuTheme

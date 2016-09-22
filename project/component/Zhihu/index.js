@@ -9,7 +9,7 @@ import{
 
 import DayList from './list'
 
-class Zhihu extends Component {
+class ZhihuNew extends Component {
   constructor(props){
     super(props)
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -69,4 +69,4 @@ class Zhihu extends Component {
 const styles = StyleSheet.create({
 
 })
-export default Zhihu
+export default ZhihuNew
