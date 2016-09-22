@@ -6,6 +6,11 @@
 
 测试机器  小米2s，安卓5.0.2
 
+安装包路径
+
+https://github.com/kliuj/react-native-joke/tree/master/project/public
+
+
 demo图片
 
 ![image](https://github.com/kliuj/react-native-joke/blob/master/project/public/23552951396258912.jpg)
