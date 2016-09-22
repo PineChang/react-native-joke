@@ -1,13 +1,11 @@
 import React,{Component} from 'react'
 import{
   View,
-  StyleSheet,
-  TouchableOpacity,
-  ListView,
-  Text
+  ListView
 }from 'react-native'
 
 import ThemeList from '../Theme/indexList'
+import CommonLoading from '../Common/loading'
 
 class ZhihuTheme extends Component {
   constructor(props){
@@ -56,17 +54,10 @@ class ZhihuTheme extends Component {
       )
     }else{
       return (
-         <View
-               style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
-         >
-             <Text style={styles.info}>正在加载</Text>
-         </View>
+         <CommonLoading />
       )
     }
   }
 }
 
-const styles = StyleSheet.create({
-
-})
 export default ZhihuTheme

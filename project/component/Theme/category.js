@@ -3,13 +3,12 @@ import React,{Component} from 'react'
 import{
   View,
   StyleSheet,
-  TouchableOpacity,
-  ListView,
-  Text
+  ListView
 }from 'react-native'
 
 import DayList from '../Zhihu/list'
 import {Header} from '../Main/header'
+import CommonLoading from '../Common/loading'
 
 export default class Category extends Component {
   constructor(props){
@@ -27,6 +26,7 @@ export default class Category extends Component {
     fetch('http://news-at.zhihu.com/api/4/theme/'+this.props.id)
     .then((response) => response.json())
     .then((responseJson) => {
+      if(this.refs.categoryId ){
         this.setState({
           listResource:this.state.listResource.concat(responseJson.stories),
           pageIndex:this.state.pageIndex +1,
@@ -37,40 +37,37 @@ export default class Category extends Component {
             isAllLoad:true
           })
         }
+      }
     })
   }
   componentDidMount(){
-      this.getData()
+      setTimeout(()=>{
+        this.getData()
+      },300)
   }
-  _onEndReached(){
-    if(this.state.isAllLoad){
-      return ;
-    }
-    this.getData()
-  }
-  render(){
+  renderList(){
     if(this.state.listResource.length){
       return (
-        <View style={{flex:1,backgroundColor:'#ddd'}}>
-            <Header headerName={this.props.name} hasBack="1" navigator={this.props.navigator} />
             <ListView
-               dataSource={this.state.ds}
-               renderRow={(rowData) =><DayList data={rowData} navigator={this.props.navigator} />}
-             />
-        </View>
-      )
+             dataSource={this.state.ds}
+             initialListSize ={10}
+             renderRow={(rowData) =><DayList data={rowData} navigator={this.props.navigator} />}
+           />
+       )
     }else{
       return (
-         <View style={{flex:1,backgroundColor:'#ddd'}}>
-             <Header headerName={this.props.name} hasBack="1" navigator={this.props.navigator} />
-             <View
-                   style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
-             >
-                 <Text style={styles.info}>正在加载</Text>
-             </View>
-         </View>
+         <CommonLoading />
       )
     }
+  }
+  render(){
+
+    return (
+      <View ref="categoryId" style={{flex:1,backgroundColor:'#ddd'}}>
+          <Header headerName={this.props.name} hasBack="1" navigator={this.props.navigator} />
+          {this.renderList()}
+      </View>
+    )
   }
 }
 

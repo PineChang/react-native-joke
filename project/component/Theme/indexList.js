@@ -1,4 +1,4 @@
-/*分类页面组件*/
+/*分类页面大图组件*/
 import React,{Component} from 'react'
 import {
   View,

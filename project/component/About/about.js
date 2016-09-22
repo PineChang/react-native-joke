@@ -19,9 +19,8 @@ export default class About extends Component {
           <View style={{alignItems:'stretch',height:50}}>
             <Header headerName="关于软件" navigator={this.props.navigator} hasBack="1"/>
           </View>
-          <Text style={styles.word}>1：来源知乎日报内容，每天三次，每次七分钟</Text>
-          <Text style={styles.word}>2：本软件属于个人学习产品，本着学习的原则，非盈利！</Text>
-          <Text style={styles.word}>3：当前版本 1.0.0，不定期更新</Text>
+          <Text style={styles.word}>1：本软件属于个人学习产品，本着学习的原则，非盈利！</Text>
+          <Text style={styles.word}>2：当前版本 1.0.0，不定期更新</Text>
       </View>
     )
   }

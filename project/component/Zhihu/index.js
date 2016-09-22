@@ -1,13 +1,11 @@
 import React,{Component} from 'react'
 import{
   View,
-  StyleSheet,
-  TouchableOpacity,
-  ListView,
-  Text
+  ListView
 }from 'react-native'
 
 import DayList from './list'
+import CommonLoading from '../Common/loading'
 
 class ZhihuNew extends Component {
   constructor(props){
@@ -40,12 +38,6 @@ class ZhihuNew extends Component {
   componentDidMount(){
       this.getData()
   }
-  _onEndReached(){
-    if(this.state.isAllLoad){
-      return ;
-    }
-    this.getData()
-  }
   render(){
     if(this.state.listResource.length){
       return (
@@ -56,17 +48,10 @@ class ZhihuNew extends Component {
       )
     }else{
       return (
-         <View
-               style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
-         >
-             <Text style={styles.info}>正在加载</Text>
-         </View>
+         <CommonLoading />
       )
     }
   }
 }
 
-const styles = StyleSheet.create({
-
-})
 export default ZhihuNew
