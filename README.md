@@ -6,12 +6,13 @@
 
 项目是基于react-native开发的安卓应用，采用的知乎api接口
 
-主要完成的功能有：
-首页的每日最新推荐
-列表页每日分类推荐
-详情页的webview内嵌
-添加icon和启动图片
-安卓打包生成apk 效果如下图所示：
+## 主要完成的功能有：
+ 
+* 首页的每日最新推荐
+* 列表页每日分类推荐
+* 详情页的webview内嵌
+* 添加icon和启动图片
+* 安卓打包生成apk 效果如下图所示：
 
 ![image](https://github.com/kliuj/react-native-joke/blob/master/project/public/1.png)
 
